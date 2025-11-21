@@ -2,8 +2,5 @@
 
 GithubFlow の試験を行うリポジトリ
 
-ccccS
-
-zzz
-
-vvv
+ぶらんち B の修正。
+ブランチ A の修正。
