@@ -1,2 +1,5 @@
 # githubflow-test
-GithubFlowの試験を行うリポジトリ
+
+GithubFlow の試験を行うリポジトリ
+
+ぶらんち B の修正。
