@@ -1,0 +1,25 @@
+name: Check Branch Naming Rule
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize]
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          HEAD_REF="${{ github.head_ref }}"
+          echo "Source branch: $HEAD_REF"
+          
+          # ブランチ名が hotfix- または release- で始まるかチェック
+          if [[ "$HEAD_REF" == hotfix-* ]] || [[ "$HEAD_REF" == release-* ]]; then
+            echo "✅ Branch name is valid."
+            exit 0
+          else
+            echo "❌ Error: Merges to 'main' are allowed only from 'hotfix-*' or 'release-*' branches."
+            exit 1
+          fi
