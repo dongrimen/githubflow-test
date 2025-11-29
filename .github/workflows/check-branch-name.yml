@@ -1,4 +1,4 @@
-name: Check Branch Naming Rule
+name: mainブランチへのマージ元ブランチ制限
 
 on:
   pull_request:
@@ -7,19 +7,18 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  check-source-branch:
+  restrict-main-merge: # <- ジョブIDを変更
     runs-on: ubuntu-latest
     steps:
-      - name: Check branch name
+      - name: マージ元ブランチのプレフィックス検証
         run: |
           HEAD_REF="${{ github.head_ref }}"
-          echo "Source branch: $HEAD_REF"
+          echo "ソースブランチ: $HEAD_REF"
           
-          # ブランチ名が hotfix- または release- で始まるかチェック
           if [[ "$HEAD_REF" == hotfix-* ]] || [[ "$HEAD_REF" == release-* ]]; then
-            echo "✅ Branch name is valid."
+            echo "✅ ブランチ名は有効です。"
             exit 0
           else
-            echo "❌ Error: Merges to 'main' are allowed only from 'hotfix-*' or 'release-*' branches."
+            echo "❌ エラー: 'main'へのマージは、'hotfix-' または 'release-' で始まるブランチのみに制限されています。"
             exit 1
           fi
