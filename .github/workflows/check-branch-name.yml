@@ -10,16 +10,17 @@ jobs:
   check-source-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Check branch name
+      - name: ブランチ命名規則のチェック
         run: |
           HEAD_REF="${{ github.head_ref }}"
-          echo "Source branch: $HEAD_REF"
+          echo "ソースブランチ: $HEAD_REF"
           
           # ブランチ名が hotfix- または release- で始まるかチェック
           if [[ "$HEAD_REF" == hotfix-* ]] || [[ "$HEAD_REF" == release-* ]]; then
-            echo "✅ Branch name is valid."
+            echo "✅ ブランチ名は有効です。"
             exit 0
           else
-            echo "❌ Error: Merges to 'main' are allowed only from 'hotfix-*' or 'release-*' branches."
+            # エラーメッセージを日本語に変更
+            echo "❌ エラー: 'main'へのマージは、'hotfix-' または 'release-' で始まるブランチのみに制限されています。"
             exit 1
           fi
